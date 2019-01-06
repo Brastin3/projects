@@ -17,10 +17,10 @@ function draw(){
   textSize(24);
   background(33, 111, 237);
   if(!ingame){
-    fill(255)
-    text("Click to play",width/2,height/2)
+    fill(255);
+    text("Click to play",width/2,height/2);
     if(prevgame){
-      text("Your score: "+score,width/2,height/2+40)
+      text("Your score: "+score,width/2,height/2+40);
     }
     if(mouseIsPressed){
       ingame=true;
@@ -31,13 +31,13 @@ function draw(){
 
   if(ingame){
     fill(79, 175, 234);
-    time=maxtime-(millis()-starttime)
-    rect(0,0,map(time,0,maxtime,0,width),30)
+    time=maxtime-(millis()-starttime);
+    rect(0,0,map(time,0,maxtime,0,width),30);
     if(time<=0){
       timerend();
     }
     fill(255);
-    rect(int(sx),int(sy),int(sd),int(sd);
+    rect(int(sx),int(sy),int(sd),int(sd));
 
   }
 }
