@@ -8,6 +8,9 @@ var maxtime;
 var ingame = false;
 var starttime;
 var prevgame;
+var mode;
+var clicked;
+var hovered;
 function setup(){
   createCanvas(windowWidth,windowHeight);
   noStroke();
@@ -23,25 +26,37 @@ function draw(){
     if(prevgame){
       text("Click to play",width/2,height/2-40);
       text("Your score: "+score,width/2,height/2+20);
-      if(score>40){
-        text("You are incredibly good at this!",width/2,height/2+60);
-      }else if(score>30){
-        text("You are very good!",width/2,height/2+60);
-      }else if(score>20){
-        text("You did well!",width/2,height/2+60);
-      }else if(score>10){
-        text("Keep it up!",width/2,height/2+60);
+      if(width<300||height<400){
+        textSize(12);
+        text("You have an awfully small display size.\n"+width+"x"+height,width/2,height/2+40);
+        textSize(24);
       }else{
-        text("Keep practicing.",width/2,height/2+60);
+        if(score>40){
+          text("You are incredibly good at this!",width/2,height/2+60);
+        }else if(score>30){
+          text("You are very good!",width/2,height/2+60);
+        }else if(score>20){
+          text("You did well!",width/2,height/2+60);
+        }else if(score>10){
+          text("Keep it up!",width/2,height/2+60);
+        }else{
+          text("Keep practicing.",width/2,height/2+60);
+        }
       }
-
     }else{
       text("Click to play",width/2,height/2);
+      if(width<300||height<400){
+        textSize(12);
+        text("After resizing your window, of course.\n"+width+"x"+height,width/2,height/2+40);
+        textSize(12);
+      }
     }
+    //text("Stay inside mode",width/3,height/2)
+
+
     if(mouseIsPressed){
       ingame=true;
       resetgame();
-
     }
   }
 
@@ -54,6 +69,16 @@ function draw(){
     }
     fill(255);
     if(mouseX>sx-sd&&mouseX<sx+sd&&mouseY>sy-sd&&mouseY<sy+sd){
+      fill(79, 175, 234);
+      if(mouseIsPressed){
+        clicked=true;
+      }
+      hovered=true;
+    }
+    if(mode==1&&clicked){
+      fill(79, 175, 234);
+    }
+    if(mode==2&&hovered){
       fill(79, 175, 234);
     }
     rect(int(sx-sd),int(sy-sd),int(sd*2),int(sd*2));
@@ -78,20 +103,27 @@ function resetgame(){
 
 function timerend(){
   if(mouseX>sx-sd&&mouseX<sx+sd&&mouseY>sy-sd&&mouseY<sy+sd){
-    sx=random(0+100,width-50);
-    sy=random(0+50,height-50);
-    sd=sd*0.95;
-    maxtime=maxtime-250;
-    if(maxtime<1250){
-      maxtime=1250;
-    }
-    time=maxtime;
-    starttime=millis();
-    score++;
+    updatesquare();
+  }else if(mode==1&&clicked){
+    updatesquare();
+  }else if (mode==2&&hovered){
+    updatesquare();
   }else{
     ingame=false;
     prevgame=true;
   }
+}
 
-
+function updatesquare(){
+  sx=random(0+100,width-50);
+  sy=random(0+50,height-50);
+  sd=sd*0.95;
+  maxtime=maxtime-250;
+  if(maxtime<1250){
+    maxtime=1250;
+  }
+  time=maxtime;
+  starttime=millis();
+  score++;
+  clicked=false;
 }
