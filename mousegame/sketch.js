@@ -54,7 +54,7 @@ function draw(){
     //text("Stay inside mode",width/3,height/2)
 
 
-    if(mouseIsPressed){
+    if(mouseIsPressed&&height>300&&width>300){
       ingame=true;
       resetgame();
     }
