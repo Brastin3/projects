@@ -22,7 +22,7 @@ function draw(){
   background(33, 111, 237);
   if(!ingame){
     fill(255);
-
+    text("Display size: "+width+"x"+height,width/2,height/2+100);
     if(prevgame){
       text("Click to play",width/2,height/2-40);
       text("Your score: "+score,width/2,height/2+20);
@@ -42,6 +42,7 @@ function draw(){
         }else{
           text("Keep practicing.",width/2,height/2+60);
         }
+
       }
     }else{
       text("Click to play",width/2,height/2);
@@ -51,6 +52,7 @@ function draw(){
         textSize(12);
       }
     }
+
     //text("Stay inside mode",width/3,height/2)
 
 
