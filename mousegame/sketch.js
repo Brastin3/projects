@@ -124,6 +124,9 @@ function updatesquare(){
   if(maxtime<1250){
     maxtime=1250;
   }
+  if(sd<5){
+    sd=5;
+  }
   time=maxtime;
   starttime=millis();
   score++;
