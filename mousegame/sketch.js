@@ -12,6 +12,7 @@ var mode;
 var clicked;
 var hovered;
 var high = 0;
+var hoveredonce;
 function setup(){
   createCanvas(windowWidth,windowHeight);
   noStroke();
@@ -21,6 +22,8 @@ function setup(){
 function draw(){
   textSize(24);
   background(33, 111, 237);
+
+
   if(!ingame){
     fill(255);
     text("Display size: "+width+"x"+height,width/2,height/2+100);
@@ -66,6 +69,11 @@ function draw(){
   }
 
   if(ingame){
+
+    if(hoveredonce&&!hovered||(map(time,0,maxtime,0,width)<width/4&&!hovered)){
+      fill(255, 79, 87);
+      rect(int(sx-sd*2),int(sy-sd*2),int(sd*4),int(sd*4));
+    }
     fill(39, 57, 71);
     rect(0,0,width,30);
     fill(79, 175, 234);
@@ -74,9 +82,7 @@ function draw(){
       fill(255,200,200)
     }
     rect(0,0,map(time,0,maxtime,0,width),30);
-    if(time<=0){
-      timerend();
-    }
+
     fill(255);
     if(mouseX>=sx-sd&&mouseX<=sx+sd&&mouseY>=sy-sd&&mouseY<=sy+sd){
       fill(172, 255, 71);
@@ -84,6 +90,7 @@ function draw(){
         clicked=true;
       }
       hovered=true;
+      hoveredonce=true;
     }else{
       hovered=false;
     }
@@ -98,13 +105,17 @@ function draw(){
     fill(255);
     if(hovered){
       text(score,sx,sy-sd-20);
+      var t = map(time,0,maxtime,0,sd)
+      rect(int(sx-t),int(sy-t),int(t*2),int(t*2));
     }
 
     text(score,width/2,24);
     textAlign(RIGHT);
     text("Square size: "+int(sd*2)+"px",width-10,24);
     textAlign(CENTER);
-
+    if(time<=0){
+      timerend();
+    }
   }
 }
 
@@ -136,6 +147,8 @@ function timerend(){
     if(score>high){
       high=score;
     }
+    //updatesquare();
+    hoveredonce=false;
   }
 }
 
@@ -154,4 +167,5 @@ function updatesquare(){
   starttime=millis();
   score++;
   clicked=false;
+  hoveredonce=false;
 }
