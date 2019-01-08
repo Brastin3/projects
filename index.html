@@ -11,8 +11,11 @@
     <script src="addons/p5.sound.min.js"></script>
     <script src="sketch.js"></script>
   </head>
-  <body>
+  <body id="body" class="light-mode" >
+    <button id="dmbtn" type="button" name="dark_light" onclick="toggleDarkLight()" title="Toggle dark/light mode">Dark Theme</button>
     <h1>Brastins p5js projects</h1>
+
+
     <div class="card">
       <a href="flappy/index.html">
         <img src="flappy.png">
@@ -31,5 +34,8 @@
         <p>Mouse game thing</p>
       </a>
     </div>
+
+
+
   </body>
 </html>
