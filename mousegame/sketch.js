@@ -11,6 +11,7 @@ var prevgame;
 var mode;
 var clicked;
 var hovered;
+var high = 0;
 function setup(){
   createCanvas(windowWidth,windowHeight);
   noStroke();
@@ -26,6 +27,7 @@ function draw(){
     if(prevgame){
       text("Click to play",width/2,height/2-40);
       text("Your score: "+score,width/2,height/2+20);
+      text("Highest score this session: "+high,width/2,40);
       if(width<300||height<400){
         textSize(12);
         text("You have an awfully small display size.\n"+width+"x"+height,width/2,height/2+40);
@@ -51,10 +53,11 @@ function draw(){
         text("After resizing your window, of course.\n"+width+"x"+height,width/2,height/2+40);
         textSize(12);
       }
+
     }
 
     //text("Stay inside mode",width/3,height/2)
-
+    rect(width/2-100);
 
     if(mouseIsPressed&&height>300&&width>300){
       ingame=true;
@@ -63,19 +66,26 @@ function draw(){
   }
 
   if(ingame){
+    fill(39, 57, 71);
+    rect(0,0,width,30);
     fill(79, 175, 234);
     time=maxtime-(millis()-starttime);
+    if(map(time,0,maxtime,0,width)<width/4){
+      fill(255,200,200)
+    }
     rect(0,0,map(time,0,maxtime,0,width),30);
     if(time<=0){
       timerend();
     }
     fill(255);
-    if(mouseX>sx-sd&&mouseX<sx+sd&&mouseY>sy-sd&&mouseY<sy+sd){
-      fill(79, 175, 234);
+    if(mouseX>=sx-sd&&mouseX<=sx+sd&&mouseY>=sy-sd&&mouseY<=sy+sd){
+      fill(172, 255, 71);
       if(mouseIsPressed){
         clicked=true;
       }
       hovered=true;
+    }else{
+      hovered=false;
     }
     if(mode==1&&clicked){
       fill(79, 175, 234);
@@ -84,6 +94,16 @@ function draw(){
       fill(79, 175, 234);
     }
     rect(int(sx-sd),int(sy-sd),int(sd*2),int(sd*2));
+
+    fill(255);
+    if(hovered){
+      text(score,sx,sy-sd-20);
+    }
+
+    text(score,width/2,24);
+    textAlign(RIGHT);
+    text("Square size: "+int(sd*2)+"px",width-10,24);
+    textAlign(CENTER);
 
   }
 }
@@ -104,7 +124,7 @@ function resetgame(){
 }
 
 function timerend(){
-  if(mouseX>sx-sd&&mouseX<sx+sd&&mouseY>sy-sd&&mouseY<sy+sd){
+  if(mouseX>=sx-sd&&mouseX<=sx+sd&&mouseY>=sy-sd&&mouseY<=sy+sd){
     updatesquare();
   }else if(mode==1&&clicked){
     updatesquare();
@@ -113,6 +133,9 @@ function timerend(){
   }else{
     ingame=false;
     prevgame=true;
+    if(score>high){
+      high=score;
+    }
   }
 }
 
